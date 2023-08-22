@@ -1,0 +1,10 @@
+<%= link_to "New Book", new_book_path %>
+<br>
+<h1>Books</h1>
+<ul>
+  <% @books.each do |book| %>
+    <a href="<%= book_path(book.id) %>">
+      <li><%=book.name%></li>
+    </a>
+  <%end%>
+</ul>
