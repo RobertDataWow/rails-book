@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
   has_many :reviews
-  validates :name, precense: true
-  validates :release, precense: true
+  validates :name, presence: true
+  validates :release, presence: true
 end
