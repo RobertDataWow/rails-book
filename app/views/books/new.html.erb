@@ -1,3 +1,5 @@
-<a href="<%= books_path %>">back</a>
-<h1>New Book</h1>
-<%= render "form", book: @book, errors: params[:errors] %>
+<a class="back-button" href="<%= book_path(@book) %>">Back</a>
+<div class="mid-container">
+  <h1>New Book</h1>
+  <%= render "form", book: @book, errors: params[:errors] %>
+</div>
