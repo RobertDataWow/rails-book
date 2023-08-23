@@ -5,7 +5,9 @@ class BooksController < ApplicationController
     @books = Book.all
   end
 
-  def show; end
+  def show
+    @review = Review.new
+  end
 
   def edit; end
 
@@ -14,17 +16,20 @@ class BooksController < ApplicationController
   end
 
   def update
-    @book = Book.update(book_params)
-    return redirect_to edit_book_path(errors: @book.errors.full_messages) unless @book.valid?
-
-    redirect_to @book
+    if @book.update(book_params)
+      redirect_to @book
+    else
+      redirect_to edit_book_path(errors: @book.errors.full_messages)
+    end
   end
 
   def create
-    @book = Book.create(book_params)
-    return redirect_to new_book_path(errors: @book.errors.full_messages) unless @book.valid?
-
-    redirect_to @book
+    @book = Book.new(book_params)
+    if @book.save
+      redirect_to @book
+    else
+      redirect_to new_book_path(errors: @book.errors.full_messages)
+    end
   end
 
   def destroy
