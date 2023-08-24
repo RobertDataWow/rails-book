@@ -4,14 +4,14 @@ RSpec.describe TestService, type: :service do
   describe '.hello' do
     subject { described_class }
 
-    context 'no arg' do
-      it 'return default' do
+    context 'without arg' do
+      it 'returns default' do
         expect(subject.test_return).to eq('default')
       end
     end
 
-    context 'have arg' do
-      it 'return arg' do
+    context 'with arg' do
+      it 'returns arg' do
         expect(subject.test_return('word')).to eq('word')
       end
     end

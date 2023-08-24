@@ -17,7 +17,7 @@ RSpec.describe BooksController, type: :controller do
     end
 
     context 'when user not sign in' do
-      it 'unauthorize access' do
+      it 'unauthorizes access' do
         expect(subject.status).to eq(302)
         expect(subject).to redirect_to(new_user_session_path)
       end
@@ -43,14 +43,14 @@ RSpec.describe BooksController, type: :controller do
 
       context 'book not exist' do
         let(:params) { { id: -1 } }
-        it 'raise error not found' do
+        it 'raises error not found' do
           expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
 
     context 'when user not sign in' do
-      it 'unauthorize access' do
+      it 'unauthorizes access' do
         expect(subject.status).to eq(302)
         expect(subject).to redirect_to(new_user_session_path)
       end
