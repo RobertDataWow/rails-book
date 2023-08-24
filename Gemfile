@@ -88,3 +88,5 @@ gem 'byebug', '~> 11.1'
 gem "devise", "~> 4.9"
 gem "pundit", "~> 2.3"
 gem "rails-erd", "~> 1.7"
+
+gem "rails-controller-testing", "~> 1.0"
