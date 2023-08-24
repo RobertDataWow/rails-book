@@ -26,6 +26,8 @@ class ReviewsController < ApplicationController
     redirect_to book_path(@book)
   end
 
+  private
+
   def review_params
     params.require(:review).permit(:comment, :star)
   end
