@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   def index
     @books = Book.all
@@ -25,6 +26,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
+    authorize @book, policy_class: BookPolicy
     if @book.save
       redirect_to @book
     else
