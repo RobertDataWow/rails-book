@@ -46,14 +46,14 @@ RSpec.describe Book, type: :model do
       review_bb
     end
 
-    context 'for book_a' do
+    context 'with book_a' do
       let(:book) { book_a }
       it 'return book_a comments' do
         is_expected.to match_array([review_a.comment, review_b.comment, review_c.comment])
       end
     end
 
-    context 'for book_b' do
+    context 'with book_b' do
       let(:book) { book_b }
       it 'return book_b comments' do
         is_expected.to match_array([review_aa.comment, review_bb.comment])
