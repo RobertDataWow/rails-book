@@ -74,6 +74,7 @@
     </style>
   </head>
   <body>
+    <%= button_to "Sign out", destroy_user_session_path(destroy_user_session_path), method: :delete %>
     <div class="header">
       <h1>Book List</h1>
       <a href="<%= new_book_path %>" class="add-button">Add Books</a>
