@@ -1,0 +1,14 @@
+<a class="back-button" href="<%= book_path(@book) %>">Back</a>
+<div class="mid-container">
+  <h1>Update Review</h1>
+  <%= form_with model: [@book, @review], local: true do |form| %>
+    <%= form.label :comment, "Comment" %><br>
+    <%= form.text_area :comment, rows: 4 %>
+    <%= params[:review_errors]%><br>
+    <br>
+    <%= form.label :star, "Star Rating" %><br>
+    <%= form.select :star, options_for_select([1, 2, 3, 4, 5]), {} %><br>
+    <br>
+    <%= form.submit "Submit Review" %>
+  <%end%>
+</div>
