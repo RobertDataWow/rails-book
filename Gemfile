@@ -72,3 +72,15 @@ group :test do
 end
 
 gem "pg", "~> 1.5"
+
+gem "rspec-rails", "~> 6.0"
+
+gem "annotate", "~> 3.2"
+
+gem "factory_bot_rails", "~> 6.2"
+
+gem "faker", "~> 3.2"
+
+gem "shoulda-matchers", "~> 5.3"
+
+gem "byebug", "~> 11.1"
