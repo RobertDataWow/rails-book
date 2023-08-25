@@ -13,4 +13,8 @@ class Book < ApplicationRecord
   has_many :reviews, dependent: :destroy
   validates :name, presence: true
   validates :release, presence: true
+
+  def review_comments
+    reviews.pluck(:comment)
+  end
 end
