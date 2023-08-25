@@ -17,6 +17,7 @@ class BooksController < ApplicationController
   end
 
   def update
+    authorize @book, policy_class: BookPolicy
     if @book.update(book_params)
       redirect_to @book
     else
@@ -26,7 +27,6 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    authorize @book, policy_class: BookPolicy
     if @book.save
       redirect_to @book
     else
@@ -35,6 +35,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    authorize @book, policy_class: BookPolicy
     @book.destroy
     redirect_to books_path
   end
@@ -46,6 +47,6 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:name, :description, :release)
+    params.require(:book).permit(:name, :description, :release).merge(user: current_user)
   end
 end

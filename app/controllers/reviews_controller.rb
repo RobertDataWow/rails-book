@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def update
+    authorize @review, policy_class: ReviewPolicy
     if @review.update(review_params)
       redirect_to book_path(@review.book)
     else
@@ -22,6 +23,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    authorize @review, policy_class: ReviewPolicy
     @review.destroy
     redirect_to book_path(@book)
   end
@@ -29,7 +31,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:comment, :star)
+    params.require(:review).permit(:comment, :star).merge(user: current_user)
   end
 
   def set_review
