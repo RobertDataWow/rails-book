@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   end
 
   def update
-    authorize @book, policy_class: BookPolicy
+    authorize @book
     if @book.update(book_params)
       redirect_to @book
     else
@@ -35,7 +35,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    authorize @book, policy_class: BookPolicy
+    authorize @book
     @book.destroy
     redirect_to books_path
   end

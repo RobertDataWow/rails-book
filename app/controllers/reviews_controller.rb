@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def update
-    authorize @review, policy_class: ReviewPolicy
+    authorize @review
     if @review.update(review_params)
       redirect_to book_path(@review.book)
     else
@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    authorize @review, policy_class: ReviewPolicy
+    authorize @review
     @review.destroy
     redirect_to book_path(@book)
   end

@@ -36,6 +36,10 @@ class ApplicationPolicy
     false
   end
 
+  def user_creator?
+    record.user == user
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user
