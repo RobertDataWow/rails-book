@@ -31,4 +31,18 @@ class Book < ApplicationRecord
   def review_comments
     reviews.pluck(:comment)
   end
+
+  def cache_views_key
+    "books/#{id}/viewing_count"
+  end
+
+  def cache_views
+    Rails.cache.fetch(cache_views_key) || 0
+  end
+
+  def cache_views!(force = nil)
+    count = force.nil? ? cache_views + 1 : force
+    Rails.cache.write(cache_views_key, count)
+    count
+  end
 end
