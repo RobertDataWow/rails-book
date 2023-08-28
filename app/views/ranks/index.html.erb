@@ -29,6 +29,7 @@
     </style>
   </head>
   <body>
+    <%= button_to "Sign out", destroy_user_session_path(destroy_user_session_path), method: :delete %>
     <h1>Ranking</h1>
     <% @ranks.each do |rank| %>
       <h4><%= rank.date.strftime('%Y-%m-%d') %></h4>

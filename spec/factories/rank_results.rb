@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :rank do
-    date { "2023-08-28 12:18:35" }
+    date { Faker::Time.between(from: DateTime.now - 360, to: DateTime.now) }
   end
 end
