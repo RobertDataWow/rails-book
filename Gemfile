@@ -96,3 +96,5 @@ gem "kaminari", "~> 1.2"
 gem "sidekiq", "~> 7.1"
 
 gem "config", "~> 4.2"
+
+gem "sidekiq-cron", "~> 1.10"
