@@ -7,4 +7,6 @@
 #
 class Rank < ApplicationRecord
   has_many :book_ranks, dependent: :nullify
+
+  paginates_per 1
 end
