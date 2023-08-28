@@ -25,6 +25,8 @@ class Book < ApplicationRecord
   validates :name, presence: true
   validates :release, presence: true
 
+  paginates_per 10
+
   def review_comments
     reviews.pluck(:comment)
   end
