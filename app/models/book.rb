@@ -19,7 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Book < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :reviews, dependent: :destroy
   has_many :book_ranks, dependent: :nullify
 

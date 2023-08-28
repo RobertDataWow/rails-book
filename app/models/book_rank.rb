@@ -21,6 +21,6 @@
 #  fk_rails_...  (rank_id => ranks.id)
 #
 class BookRank < ApplicationRecord
-  belongs_to :book
-  belongs_to :rank
+  belongs_to :book, optional: true
+  belongs_to :rank, optional: true
 end

@@ -30,7 +30,7 @@ RSpec.describe BookRank, type: :model do
   end
 
   describe 'asociations' do
-    it { is_expected.to belong_to(:book) }
-    it { is_expected.to belong_to(:rank) }
+    it { is_expected.to belong_to(:book).optional }
+    it { is_expected.to belong_to(:rank).optional }
   end
 end

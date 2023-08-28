@@ -34,6 +34,7 @@ RSpec.describe Book, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:reviews) }
+    it { is_expected.to have_many(:book_ranks) }
   end
 
   describe '#review_comments' do

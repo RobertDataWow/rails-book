@@ -13,4 +13,8 @@ RSpec.describe Rank, type: :model do
 
     it { is_expected.to be_valid }
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:book_ranks) }
+  end
 end
