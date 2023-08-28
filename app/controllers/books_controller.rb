@@ -3,11 +3,15 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @books = Book.page(params[:page])
+    cache_key = "books/#{Book.latest_update_str}"
+    all_books = Rails.cache.fetch(cache_key) { Book.all }
+    @books = all_books.page(params[:page])
   end
 
   def show
+    cache_key = "book_reviews/#{@book.id}/#{@book.reviews.latest_update_str}"
     @review = Review.new
+    @reviews = Rails.cache.fetch(cache_key) { @book.reviews }
   end
 
   def edit; end
