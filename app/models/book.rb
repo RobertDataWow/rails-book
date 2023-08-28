@@ -35,6 +35,6 @@ class Book < ApplicationRecord
     cache_key = "book_#{id}_review_stars/#{reviews.latest_update_str}"
     puts cache_key
     avg = Rails.cache.fetch(cache_key) { reviews.average(:star) }
-    avg.nil? ? '☆☆☆☆☆' : ('★' * avg.floor).ljust(5, '☆')
+    avg.blank? ? '☆☆☆☆☆' : ('★' * avg.floor).ljust(5, '☆')
   end
 end
