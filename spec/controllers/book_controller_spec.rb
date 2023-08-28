@@ -5,14 +5,22 @@ RSpec.describe BooksController, type: :controller do
     subject { get :index }
 
     let(:user) { create(:user) }
-    let(:books) { create_list(:book, 10) }
+    let(:books) { create_list(:book, 15) }
 
     context 'when user sign in' do
       before { sign_in user }
+      it { expect(subject.status).to eq(200) }
 
-      it 'returns all books' do
-        expect(subject.status).to eq(200)
-        expect(assigns(:books)).to eq(Book.all)
+      context 'returns correct pagination' do
+        it 'pages 1' do
+          get :index, params: { page: 1 }
+          expect(assigns(:books)).to eq(Book.page(1))
+        end
+
+        it 'pages 2' do
+          get :index, params: { page: 2 }
+          expect(assigns(:books)).to eq(Book.page(2))
+        end
       end
     end
 
