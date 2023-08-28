@@ -21,6 +21,7 @@
 class Book < ApplicationRecord
   belongs_to :user
   has_many :reviews, dependent: :destroy
+  has_many :book_ranks, dependent: :nullify
 
   validates :name, presence: true
   validates :release, presence: true
