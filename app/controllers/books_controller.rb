@@ -7,6 +7,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book.cache_views!
     @review = Review.new
   end
 

@@ -21,7 +21,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Review < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :book
 
   validates :comment, presence: true
