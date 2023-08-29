@@ -6,9 +6,9 @@
 #  view       :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  book_id    :bigint           not null
+#  book_id    :bigint
 #  order_id   :integer
-#  rank_id    :bigint           not null
+#  rank_id    :bigint
 #
 # Indexes
 #
