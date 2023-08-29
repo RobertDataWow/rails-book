@@ -1,12 +1,12 @@
 class BookApi < Grape::API
   resource :books do
-    desc 'Get all books'
+    desc 'GET /api/v1/books'
     get do
       books = Book.all
       BookSerializer.new(books).serializable_hash
     end
 
-    desc 'Create a new book'
+    desc 'POST /api/v1/books'
     params do
       requires :name, type: String
       requires :release, type: Date
@@ -17,32 +17,34 @@ class BookApi < Grape::API
       BookSerializer.new(book).serializable_hash
     end
 
-    desc 'Get a specific book'
-    get ':id' do
-      book = Book.find_by(id: params[:id])
-      error!('Not Found', 404) unless book
-      BookSerializer.new(book).serializable_hash
-    end
+    route_param :id do
+      desc 'GET /api/v1/books/:id'
+      get do
+        book = Book.find_by(id: params[:id])
+        error!('Not Found', 404) unless book
+        BookSerializer.new(book).serializable_hash
+      end
 
-    desc 'Update a book'
-    params do
-      optional :name, type: String, desc: 'Book name'
-      optional :release, type: Date, desc: 'Release date'
-      optional :description
-    end
-    put ':id' do
-      book = Book.find_by(id: params[:id])
-      error!('Not Found', 404) unless book
-      book.update(params)
-      BookSerializer.new(book).serializable_hash
-    end
+      desc 'PUT /api/v1/books/:id'
+      params do
+        optional :name, type: String, desc: 'Book name'
+        optional :release, type: Date, desc: 'Release date'
+        optional :description
+      end
+      put do
+        book = Book.find_by(id: params[:id])
+        error!('Not Found', 404) unless book
+        book.update(params)
+        BookSerializer.new(book).serializable_hash
+      end
 
-    desc 'Delete a book'
-    delete ':id' do
-      book = Book.find_by(id: params[:id])
-      error!('Not Found', 404) unless book
-      book.destroy
-      { message: 'Book deleted successfully' }
+      desc 'DELETE /api/v1/books/:id'
+      delete do
+        book = Book.find_by(id: params[:id])
+        error!('Not Found', 404) unless book
+        book.destroy
+        { message: 'Book deleted successfully' }
+      end
     end
   end
 end
