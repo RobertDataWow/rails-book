@@ -1,0 +1,4 @@
+:schedule:
+  book_review_job:
+    cron: "0 0 * * *" # Runs every day at midnight
+    class: "BookReviewJob"

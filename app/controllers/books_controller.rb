@@ -10,6 +10,7 @@ class BooksController < ApplicationController
 
   def show
     cache_key = "book_reviews/#{@book.id}/#{@book.reviews.latest_update_str}"
+    @book.cache_views!
     @review = Review.new
     @reviews = Rails.cache.fetch(cache_key) { @book.reviews }
   end
