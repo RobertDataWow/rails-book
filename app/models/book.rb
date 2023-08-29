@@ -32,6 +32,13 @@ class Book < ApplicationRecord
     reviews.pluck(:comment)
   end
 
+  def review_stars
+    cache_key = "book_#{id}_review_stars/#{reviews.latest_update_str}"
+    puts cache_key
+    avg = Rails.cache.fetch(cache_key) { reviews.average(:star) }
+    avg.blank? ? '☆☆☆☆☆' : ('★' * avg.floor).ljust(5, '☆')
+  end
+
   def cache_views_key
     "books/#{id}/viewing_count"
   end
