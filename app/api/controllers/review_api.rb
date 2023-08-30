@@ -2,7 +2,7 @@ class ReviewApi < Grape::API
   resource :reviews do
     desc 'GET /api/v1/reviews'
     get do
-      reviews = Review.all
+      reviews = Review.order(:id)
 
       status 200
       ReviewSerializer.new(reviews)
@@ -17,6 +17,7 @@ class ReviewApi < Grape::API
     post do
       book = Book.find_by(id: params[:book])
       error!('Book Not Found', 404) unless book
+
       params[:book] = book
       review = Review.create(declared(params).merge(user: current_user))
 
@@ -42,16 +43,20 @@ class ReviewApi < Grape::API
       put do
         review = Review.find_by(id: params[:id])
         error!('Not Found', 404) unless review
-        review.update(params)
 
-        status 200
-        ReviewSerializer.new(review)
+        if review.update(params)
+          status 200
+          ReviewSerializer.new(review)
+        else
+          error!(review.errors.full_messages, 422)
+        end
       end
 
       desc 'DELETE /api/v1/reviews/:id'
       delete do
         review = Review.find_by(id: params[:id])
         error!('Not Found', 404) unless review
+
         review.destroy
 
         status 204

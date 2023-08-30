@@ -2,7 +2,7 @@ class BookApi < Grape::API
   resource :books do
     desc 'GET /api/v1/books'
     get do
-      books = Book.all
+      books = Book.order(:id)
 
       status 200
       BookSerializer.new(books)
@@ -33,23 +33,27 @@ class BookApi < Grape::API
 
       desc 'PUT /api/v1/books/:id'
       params do
-        optional :name, type: String, desc: 'Book name'
-        optional :release, type: Date, desc: 'Release date'
+        optional :name, type: String
+        optional :release, type: Date
         optional :description
       end
       put do
         book = Book.find_by(id: params[:id])
         error!('Not Found', 404) unless book
-        book.update(params)
 
-        status 200
-        BookSerializer.new(book)
+        if book.update(params)
+          status 200
+          BookSerializer.new(book)
+        else
+          error!(book.errors.full_messages, 422)
+        end
       end
 
       desc 'DELETE /api/v1/books/:id'
       delete do
         book = Book.find_by(id: params[:id])
         error!('Not Found', 404) unless book
+
         book.destroy
 
         status 204
