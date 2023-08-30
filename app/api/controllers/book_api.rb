@@ -3,7 +3,9 @@ class BookApi < Grape::API
     desc 'GET /api/v1/books'
     get do
       books = Book.all
-      BookSerializer.new(books).serializable_hash
+
+      status 200
+      BookSerializer.new(books)
     end
 
     desc 'POST /api/v1/books'
@@ -14,7 +16,9 @@ class BookApi < Grape::API
     end
     post do
       book = Book.create(declared(params).merge(user: current_user))
-      BookSerializer.new(book).serializable_hash
+
+      status 201
+      BookSerializer.new(book)
     end
 
     route_param :id do
@@ -22,7 +26,9 @@ class BookApi < Grape::API
       get do
         book = Book.find_by(id: params[:id])
         error!('Not Found', 404) unless book
-        BookSerializer.new(book).serializable_hash
+
+        status 200
+        BookSerializer.new(book)
       end
 
       desc 'PUT /api/v1/books/:id'
@@ -35,7 +41,9 @@ class BookApi < Grape::API
         book = Book.find_by(id: params[:id])
         error!('Not Found', 404) unless book
         book.update(params)
-        BookSerializer.new(book).serializable_hash
+
+        status 200
+        BookSerializer.new(book)
       end
 
       desc 'DELETE /api/v1/books/:id'
@@ -43,7 +51,9 @@ class BookApi < Grape::API
         book = Book.find_by(id: params[:id])
         error!('Not Found', 404) unless book
         book.destroy
-        { message: 'Book deleted successfully' }
+
+        status 204
+        {}
       end
     end
   end

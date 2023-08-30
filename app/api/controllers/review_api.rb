@@ -3,7 +3,9 @@ class ReviewApi < Grape::API
     desc 'GET /api/v1/reviews'
     get do
       reviews = Review.all
-      ReviewSerializer.new(reviews).serializable_hash
+
+      status 200
+      ReviewSerializer.new(reviews)
     end
 
     desc 'POST /api/v1/reviews'
@@ -17,7 +19,9 @@ class ReviewApi < Grape::API
       error!('Book Not Found', 404) unless book
       params[:book] = book
       review = Review.create(declared(params).merge(user: current_user))
-      ReviewSerializer.new(review).serializable_hash
+
+      status 201
+      ReviewSerializer.new(review)
     end
 
     route_param :id do
@@ -25,7 +29,9 @@ class ReviewApi < Grape::API
       get do
         review = Review.find_by(id: params[:id])
         error!('Not Found', 404) unless review
-        ReviewSerializer.new(review).serializable_hash
+
+        status 200
+        ReviewSerializer.new(review)
       end
 
       desc 'PUT /api/v1/reviews/:id'
@@ -37,7 +43,9 @@ class ReviewApi < Grape::API
         review = Review.find_by(id: params[:id])
         error!('Not Found', 404) unless review
         review.update(params)
-        ReviewSerializer.new(review).serializable_hash
+
+        status 200
+        ReviewSerializer.new(review)
       end
 
       desc 'DELETE /api/v1/reviews/:id'
@@ -45,7 +53,9 @@ class ReviewApi < Grape::API
         review = Review.find_by(id: params[:id])
         error!('Not Found', 404) unless review
         review.destroy
-        { message: 'Review deleted successfully' }
+
+        status 204
+        {}
       end
     end
   end
